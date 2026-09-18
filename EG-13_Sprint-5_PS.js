@@ -1,6 +1,6 @@
-// 02. Binary Search
+// 03. Search Insert Position
 
-var search = function (nums, target) {
+var searchInsert = function (nums, target) {
   let left = 0;
   let right = nums.length - 1;
 
@@ -18,7 +18,7 @@ var search = function (nums, target) {
     }
   }
 
-  return -1;
+  return left;
 };
 
-console.log(search([-1, 0, 3, 5, 9, 12], 9));
+console.log(searchInsert([1, 3, 5, 6], 5));
