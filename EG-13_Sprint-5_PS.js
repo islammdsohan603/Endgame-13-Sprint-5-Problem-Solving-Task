@@ -1,18 +1,24 @@
-// 01. Remove Duplicates from Sorted Array
+// 02. Binary Search
 
-var checkSubarraySum = function (nums, k) {
-  if (nums.length === 0) return 0;
+var search = function (nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
 
-  let count = 1;
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
 
-  for (let i = 1; i < nums.length; i++) {
-    if (nums[i] !== nums[i - 1]) {
-      nums[count] = nums[i];
-      count++;
+    if (nums[mid] === target) {
+      return mid;
+    }
+
+    if (nums[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
     }
   }
 
-  return count;
+  return -1;
 };
 
-console.log(checkSubarraySum([1, 1, 2]));
+console.log(search([-1, 0, 3, 5, 9, 12], 9));
