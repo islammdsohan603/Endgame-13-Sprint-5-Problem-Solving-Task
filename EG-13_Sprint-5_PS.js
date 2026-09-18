@@ -1,24 +1,27 @@
-// 03. Search Insert Position
+// 04. Maximum Depth of Binary Tree
 
-var searchInsert = function (nums, target) {
-  let left = 0;
-  let right = nums.length - 1;
+function TreeNode(val, left = null, right = null) {
+  this.val = val;
+  this.left = left;
+  this.right = right;
+}
 
-  while (left <= right) {
-    let mid = Math.floor((left + right) / 2);
-
-    if (nums[mid] === target) {
-      return mid;
-    }
-
-    if (nums[mid] < target) {
-      left = mid + 1;
-    } else {
-      right = mid - 1;
-    }
+var maxDepth = function (root) {
+  if (root === null) {
+    return 0;
   }
 
-  return left;
+  let leftDepth = maxDepth(root.left);
+  let rightDepth = maxDepth(root.right);
+
+  return 1 + Math.max(leftDepth, rightDepth);
 };
 
-console.log(searchInsert([1, 3, 5, 6], 5));
+// Create the tree
+const root = new TreeNode(
+  3,
+  new TreeNode(9),
+  new TreeNode(20, new TreeNode(15), new TreeNode(7)),
+);
+
+console.log(maxDepth(root));
