@@ -1,27 +1,64 @@
-// 04. Maximum Depth of Binary Tree
+// 05. Invert Binary Tree
 
-function TreeNode(val, left = null, right = null) {
-  this.val = val;
-  this.left = left;
-  this.right = right;
+class TreeNode {
+  constructor(val, left = null, right = null) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
 }
 
-var maxDepth = function (root) {
+var invertTree = function (root) {
   if (root === null) {
-    return 0;
+    return null;
   }
 
-  let leftDepth = maxDepth(root.left);
-  let rightDepth = maxDepth(root.right);
+  // Swap left and right
+  let temp = root.left;
+  root.left = root.right;
+  root.right = temp;
 
-  return 1 + Math.max(leftDepth, rightDepth);
+  // Invert subtrees
+  invertTree(root.left);
+  invertTree(root.right);
+
+  return root;
 };
 
-// Create the tree
+// Create tree
 const root = new TreeNode(
-  3,
-  new TreeNode(9),
-  new TreeNode(20, new TreeNode(15), new TreeNode(7)),
+  4,
+  new TreeNode(2, new TreeNode(1), new TreeNode(3)),
+  new TreeNode(7, new TreeNode(6), new TreeNode(9)),
 );
 
-console.log(maxDepth(root));
+// Invert tree
+const invertedRoot = invertTree(root);
+
+// Convert tree to array
+function treeToArray(root) {
+  if (root === null) {
+    return [];
+  }
+
+  const result = [];
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const node = queue.shift();
+
+    result.push(node.val);
+
+    if (node.left !== null) {
+      queue.push(node.left);
+    }
+
+    if (node.right !== null) {
+      queue.push(node.right);
+    }
+  }
+
+  return result;
+}
+
+console.log(treeToArray(invertedRoot));
