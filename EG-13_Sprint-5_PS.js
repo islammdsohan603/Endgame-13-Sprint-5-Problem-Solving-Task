@@ -1,23 +1,44 @@
-// 06. Product of Array Except Self
-
-var productExceptSelf = function (nums) {
-  const result = new Array(nums.length).fill(1);
-
-  let prefix = 1;
-
-  for (let i = 0; i < nums.length; i++) {
-    result[i] = prefix;
-    prefix = prefix * nums[i];
-  }
-
-  let suffix = 1;
-
-  for (let i = nums.length - 1; i >= 0; i--) {
-    result[i] = result[i] * suffix;
-    suffix = suffix * nums[i];
-  }
-
-  return result;
+// 08. Min Stack
+var MinStack = function () {
+  this.stack = [];
+  this.minStack = [];
 };
 
-console.log(productExceptSelf([1, 2, 3, 4]));
+MinStack.prototype.push = function (val) {
+  this.stack.push(val);
+
+  if (
+    this.minStack.length === 0 ||
+    val <= this.minStack[this.minStack.length - 1]
+  ) {
+    this.minStack.push(val);
+  }
+};
+
+MinStack.prototype.pop = function () {
+  const removed = this.stack.pop();
+
+  if (removed === this.minStack[this.minStack.length - 1]) {
+    this.minStack.pop();
+  }
+};
+
+MinStack.prototype.top = function () {
+  return this.stack[this.stack.length - 1];
+};
+
+MinStack.prototype.getMin = function () {
+  return this.minStack[this.minStack.length - 1];
+};
+
+const minStack = new MinStack();
+
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+
+console.log(minStack.getMin());
+
+minStack.pop();
+
+console.log(minStack.getMin());
