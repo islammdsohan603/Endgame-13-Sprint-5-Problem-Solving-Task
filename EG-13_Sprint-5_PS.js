@@ -1,26 +1,23 @@
-//  09. Continuous Subarray Sum
-var checkSubarraySum = function (nums, k) {
-  const map = new Map();
+// 10. Daily Temperatures
 
-  map.set(0, -1);
+var dailyTemperatures = function (temperatures) {
+  const result = new Array(temperatures.length).fill(0);
+  const stack = [];
 
-  let sum = 0;
+  for (let i = 0; i < temperatures.length; i++) {
+    while (
+      stack.length > 0 &&
+      temperatures[i] > temperatures[stack[stack.length - 1]]
+    ) {
+      const previousIndex = stack.pop();
 
-  for (let i = 0; i < nums.length; i++) {
-    sum += nums[i];
-
-    let remainder = sum % k;
-
-    if (map.has(remainder)) {
-      if (i - map.get(remainder) >= 2) {
-        return true;
-      }
-    } else {
-      map.set(remainder, i);
+      result[previousIndex] = i - previousIndex;
     }
+
+    stack.push(i);
   }
 
-  return false;
+  return result;
 };
 
-console.log(checkSubarraySum([23, 2, 4, 6, 7]));
+console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]));
