@@ -1,64 +1,28 @@
-// 05. Invert Binary Tree
+// 07. Rotate Array
 
-class TreeNode {
-  constructor(val, left = null, right = null) {
-    this.val = val;
-    this.left = left;
-    this.right = right;
-  }
-}
+var rotate = function (nums, k) {
+  k = k % nums.length;
 
-var invertTree = function (root) {
-  if (root === null) {
-    return null;
-  }
+  nums.reverse();
 
-  // Swap left and right
-  let temp = root.left;
-  root.left = root.right;
-  root.right = temp;
+  reverse(nums, 0, k - 1);
 
-  // Invert subtrees
-  invertTree(root.left);
-  invertTree(root.right);
-
-  return root;
+  reverse(nums, k, nums.length - 1);
 };
 
-// Create tree
-const root = new TreeNode(
-  4,
-  new TreeNode(2, new TreeNode(1), new TreeNode(3)),
-  new TreeNode(7, new TreeNode(6), new TreeNode(9)),
-);
+function reverse(nums, start, end) {
+  while (start < end) {
+    let temp = nums[start];
+    nums[start] = nums[end];
+    nums[end] = temp;
 
-// Invert tree
-const invertedRoot = invertTree(root);
-
-// Convert tree to array
-function treeToArray(root) {
-  if (root === null) {
-    return [];
+    start++;
+    end--;
   }
-
-  const result = [];
-  const queue = [root];
-
-  while (queue.length > 0) {
-    const node = queue.shift();
-
-    result.push(node.val);
-
-    if (node.left !== null) {
-      queue.push(node.left);
-    }
-
-    if (node.right !== null) {
-      queue.push(node.right);
-    }
-  }
-
-  return result;
 }
 
-console.log(treeToArray(invertedRoot));
+let nums = [1, 2, 3, 4, 5, 6, 7];
+
+rotate(nums, 3);
+
+console.log(nums);
