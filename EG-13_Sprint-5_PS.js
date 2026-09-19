@@ -1,44 +1,26 @@
-// 08. Min Stack
-var MinStack = function () {
-  this.stack = [];
-  this.minStack = [];
-};
+//  09. Continuous Subarray Sum
+var checkSubarraySum = function (nums, k) {
+  const map = new Map();
 
-MinStack.prototype.push = function (val) {
-  this.stack.push(val);
+  map.set(0, -1);
 
-  if (
-    this.minStack.length === 0 ||
-    val <= this.minStack[this.minStack.length - 1]
-  ) {
-    this.minStack.push(val);
+  let sum = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    sum += nums[i];
+
+    let remainder = sum % k;
+
+    if (map.has(remainder)) {
+      if (i - map.get(remainder) >= 2) {
+        return true;
+      }
+    } else {
+      map.set(remainder, i);
+    }
   }
+
+  return false;
 };
 
-MinStack.prototype.pop = function () {
-  const removed = this.stack.pop();
-
-  if (removed === this.minStack[this.minStack.length - 1]) {
-    this.minStack.pop();
-  }
-};
-
-MinStack.prototype.top = function () {
-  return this.stack[this.stack.length - 1];
-};
-
-MinStack.prototype.getMin = function () {
-  return this.minStack[this.minStack.length - 1];
-};
-
-const minStack = new MinStack();
-
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-
-console.log(minStack.getMin());
-
-minStack.pop();
-
-console.log(minStack.getMin());
+console.log(checkSubarraySum([23, 2, 4, 6, 7]));
