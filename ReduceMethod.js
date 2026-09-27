@@ -1,15 +1,10 @@
-const cart = [
-  { name: "Laptop", price: 800 },
-  { name: "Mouse", price: 30 },
-  { name: "Keyboard", price: 50 },
+// find()
+
+const users = [
+  { id: 1, name: "Sohan" },
+  { id: 2, name: "Rahim" },
+  { id: 3, name: "Karim" },
 ];
 
-let lowestProduct = cart[0];
-
-for (const prod of cart) {
-  if (prod.price > lowestProduct.price) {
-    lowestProduct = prod;
-  }
-}
-
-console.log(lowestProduct);
+const user = users.find((user) => user.id === 2);
+console.log(user);
