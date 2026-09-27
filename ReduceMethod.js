@@ -1,10 +1,7 @@
-// find()
+// same() method in negative number
 
-const users = [
-  { id: 1, name: "Sohan" },
-  { id: 2, name: "Rahim" },
-  { id: 3, name: "Karim" },
-];
+const numbers = [10, 20, -5, 30];
 
-const user = users.find((user) => user.id === 2);
-console.log(user);
+const hasNegative = numbers.some((num) => num < 0);
+
+console.log(hasNegative);
